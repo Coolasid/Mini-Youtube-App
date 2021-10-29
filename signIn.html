@@ -40,9 +40,38 @@
         };
 
        let dataToSend = JSON.stringify(userData);
-        console.log(dataToSend);
+        // console.log(dataToSend);
 
-        
+
+        let res = await fetch("https://masai-api-mocker.herokuapp.com/auth/login",{
+
+            method:"POST",
+            body:dataToSend,
+            headers:{
+                "Content-Type":"application/json",
+            }
+
+        })
+
+        let data = await res.json();
+        // console.log(data);
+        dataToSend = JSON.parse(dataToSend);
+        fetchMyData(dataToSend.username,data.token);
+    }
+
+
+  async  function fetchMyData(userName, token) {
+       let res = await fetch(`https://masai-api-mocker.herokuapp.com/user/${userName}`,{
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+        })
+
+        let data = await res.json();
+        console.log(data);
+
+
     }
 
 </script>
