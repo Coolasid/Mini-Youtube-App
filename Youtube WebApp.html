@@ -78,6 +78,9 @@
         //apiKey-AIzaSyDs8Ilqm1li - AkJXoV3wsHywwnQUn0iD6c
 
         let query = document.getElementById("inp").value;
+        if(query.length ==""){
+            return false;
+        }
         let res = await fetch(`https://youtube.googleapis.com/youtube/v3/search?q=${query}&type=video&key=AIzaSyDs8Ilqm1li - AkJXoV3wsHywwnQUn0iD6c&maxResults=20`)
         let data = await res.json();
         console.log(data);
