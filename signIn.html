@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/jpg"
+        href="https://cdn.icon-icons.com/icons2/2699/PNG/512/youtube_logo_icon_168737.png" />
+    <title>SignIn</title>
+    <style>
+        input{
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <form onsubmit="SignIn(event)" id="form">
+        <h1>SignIn</h1>
+       
+        <input type="text" id="userNm" placeholder="UserName">
+        <br>
+        <input type="password" id="pass" placeholder="password">
+        <br>
+       
+        <input type="submit">
+    </form>
+    
+</body>
+</html>
+<script>
+
+    async function SignIn(e){
+        e.preventDefault();
+
+        let form = document.getElementById("form");
+
+        let userData = {
+            username:form.userNm.value,
+            password:form.pass.value
+        };
+
+       let dataToSend = JSON.stringify(userData);
+        console.log(dataToSend);
+
+        
+    }
+
+</script>
