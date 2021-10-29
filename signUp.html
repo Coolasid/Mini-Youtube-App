@@ -54,12 +54,12 @@ async function Signup(e){
        name: form1.name.value,
        email: form1.email.value,
        password: form1.pass.value,
-       username:form.userNm.value,
+       username:form1.userNm.value,
        mobile: form1.mobile.value,
        description: form1.desc.value
    }
 
-         // console.log(userData);
+        //  console.log(userData);
 
    userData = JSON.stringify(userData); //our obj is now converted into json formate
         //console.log(userData);
@@ -76,6 +76,12 @@ async function Signup(e){
     })
    let data = await res.json();
     console.log(data); 
+    if(data.error == true){
+        alert("User already Exist, You can click on SignIn button")
+    }else{
+        window.location.href = "signIn.html";
+    }
+     
 
 }
 

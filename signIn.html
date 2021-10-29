@@ -69,9 +69,24 @@
         })
 
         let data = await res.json();
-        console.log(data);
+        // console.log(data);
+        // console.log(data.name)
 
+        if(data.name == null){
+            alert("please fill valid details")
+        } else{
+        if(localStorage.getItem("userName") == null){
+            localStorage.setItem("userName",JSON.stringify([]));
+        };
 
+        let arr = JSON.parse(localStorage.getItem("userName"));
+
+            arr.push(data.name);
+
+        localStorage.setItem("userName",JSON.stringify(arr));
+
+        window.location.href = "Youtube WebApp.html";
+        }
     }
 
 </script>

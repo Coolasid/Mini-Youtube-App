@@ -10,7 +10,7 @@
         #bar{
             height: 50px;
             display: grid;
-            grid-template-columns: 20% 80% ;
+            grid-template-columns: 20% 40% 40% ;
         }
         
         /* div{
@@ -30,7 +30,7 @@
             width: 50%;
             height: 100%;
             margin: auto;
-            padding-top: 1%;
+            padding-top: 2.4%;
             box-sizing: border-box;
         }
         
@@ -43,6 +43,13 @@
 
          ::-webkit-scrollbar {
             display: none;
+        }
+        #details{
+            display: grid;
+            grid-template-columns: 40% 50%;
+        }
+        .btn{
+            margin: 5%;
         }
     </style>
 </head>
@@ -59,6 +66,13 @@
             <div id="inpBox">
                 <input id="inp" type="text" placeholder="Search Videos" autocomplete="off" /> <button onclick="searchVideos()">Search</button>
             </div>
+        </div>
+        <div id="details">
+            <div>
+                <a href="signUp.html"><button class="btn">SignUp</button></a>
+            <a href="signIn.html"><button class="btn">SignIn</button></a>
+            </div>
+            <div id="nameApp"></div>
         </div>
     </div>
     <div id="videos">
@@ -132,7 +146,15 @@
 
     trndVideos();
     
-    
+    function appendName(){
+        let arr = JSON.parse(localStorage.getItem("userName"));
+
+        let na = document.getElementById("nameApp");
+        na.textContent = "Hello " +arr[arr.length-1];
+        na.style.margin = "5%"
+
+    }
+    appendName();
 
 
 </script>
