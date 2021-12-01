@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/jpg"
+        href="https://cdn.icon-icons.com/icons2/2699/PNG/512/youtube_logo_icon_168737.png" />
+    <title>Sid's Youtube</title>
+    <style> #bar{
+            height: 50px;
+            display: grid;
+            grid-template-columns: 20% 40% 40% ;
+        }
+        
+        /* div{
+            border: 1px solid black;
+        } */
+        #imgBox{
+            width: 70%;
+            /* height: 100%; */
+            margin: auto;
+        }
+
+        .img{
+            width: 30%;
+            margin: 2% 0 0 2%;
+        }
+        #inpBox{
+            width: 50%;
+            height: 100%;
+            margin: auto;
+            padding-top: 2.4%;
+            box-sizing: border-box;
+        }
+        
+        #videos{
+            overflow: scroll;
+            display: grid;
+            grid-template-columns: 20% 20% 20% 20%;
+            gap: 3%;
+            margin: auto;
+        }
+
+         ::-webkit-scrollbar {
+            display: none;
+        }
+        #details{
+            display: grid;
+            grid-template-columns: 40% 50%;
+        }
+        .btn{
+            margin: 5%;
+        }
+    </style>
+    </head>
+    
+    <body>
+    
+        <div id="bar">
+            <div>
+                <div id="imgBox">
+                    <a href="homePage.html"><img src="https://cdn.pixabay.com/photo/2016/11/19/03/08/youtube-1837872_960_720.png"
+                            class="img" /></a>
+                    </div>
+    
+            </div>
+            <div>
+                <div id="inpBox">
+                    <input id="inp" type="text" placeholder="Search Videos" autocomplete="off" /> <button
+                        onclick="searchVideos()">Search</button>
+                </div>
+            </div>
+            <div id="details">
+                <div>
+                    <a href="signUp.html"><button class="btn">SignUp</button></a>
+                    <a href="signIn.html"><button class="btn">SignIn</button></a>
+                </div>
+                <div id="nameApp"></div>
+            </div>
+        </div>
+        <div id="videos">
+    
+        </div>
+    
+    </body>
+    
+    </html>
+    <script>
+
+        // console.log(searchedVid)
+        var c = 0;
+        async function searchVideos() {
+
+
+
+
+
+           
+                let query = document.getElementById("inp").value;
+                if (localStorage.getItem("searchedName") === null) {
+                    localStorage.setItem("searchedName", JSON.stringify([]));
+                }
+
+                var searchedN = JSON.parse(localStorage.getItem("searchedName"));
+                searchedN.push(query);
+
+                localStorage.setItem("searchedName", JSON.stringify(searchedN))
+            
+
+
+
+
+            c++;
+            let searchedVid = JSON.parse(localStorage.getItem("searchedName"));
+
+            let q = searchedVid[searchedVid.length - 1];
+
+            videos.innerHTML = null;
+            //q-rcb
+            //type-videos
+            //apiKey-AIzaSyDs8Ilqm1li - AkJXoV3wsHywwnQUn0iD6c
+
+
+            let res = await fetch(`https://youtube.googleapis.com/youtube/v3/search?q=${q}&type=video&key=AIzaSyDs8Ilqm1li-AkJXoV3wsHywwnQUn0iD6c&maxResults=20&part=snippet`)
+            let data = await res.json();
+            // console.log(data);
+            appendVideos(data.items)
+        }
+
+        let videos = document.getElementById("videos")
+
+        function appendVideos(videoData) {
+            videos.innerHTML = null;
+
+            videoData.forEach(({ id: { videoId }, snippet: { thumbnails: { medium: { url } }, title }, }) => { //first we get the videoData obj by doing{} and again id is also obj So we do {id:{videoId}} to grab videoId.
+
+                //  console.log(videoId);
+                //  console.log(url);
+                //  console.log(title);
+
+                //embed YT video on our  web app
+                let Div = document.createElement("div");
+
+                let img = document.createElement("img");
+                img.src = url;
+                img.addEventListener("click", () => {
+                    pushToLocalSt(videoId)
+                });
+
+                let titleDiv = document.createElement("div");
+                titleDiv.textContent = title;
+
+                Div.append(img, titleDiv);
+
+
+
+                videos.append(Div);
+            })
+
+        }
+
+        if(c > 0){
+            searchVideos()
+        }
+        
+        function pushToLocalSt(videoId) {
+            // alert(videoId);
+
+            if (localStorage.getItem("videoId") === null) {
+                localStorage.setItem("videoId", JSON.stringify([]));
+            }
+
+            var arr = JSON.parse(localStorage.getItem("videoId"))
+
+            arr.push(videoId);
+
+            localStorage.setItem("videoId", JSON.stringify(arr));
+            window.location.href = "video.html";
+        }
+
+
+
+
+
+
+
+
+
+        let videoIdArr = JSON.parse( localStorage.getItem("videoId"));
+    
+    //   console.log(vi);
+        let videoId = videoIdArr[videoIdArr.length-1];
+        // console.log(videoIdArr);
+
+        let videoapp = document.getElementById("videos");
+
+            let div = document.createElement("div");
+
+
+            div.innerHTML = `<iframe width="800" height="500" src="https://www.youtube.com/embed/${videoId}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`
+
+        videoapp.append(div);
+</script>
