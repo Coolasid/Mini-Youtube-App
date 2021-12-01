@@ -127,7 +127,7 @@ var c = 0;
             //apiKey-AIzaSyDs8Ilqm1li - AkJXoV3wsHywwnQUn0iD6c
 
 
-            let res = await fetch(`https://youtube.googleapis.com/youtube/v3/search?q=${q}&type=video&key=AIzaSyDs8Ilqm1li-AkJXoV3wsHywwnQUn0iD6c&maxResults=20&part=snippet`)
+            let res = await fetch(`https://youtube.googleapis.com/youtube/v3/search?q=${q}&type=video&key=AIzaSyCLYWOhlCafZR4uS1KqYFO216_l6ZfH_DM&maxResults=20&part=snippet`)
             let data = await res.json();
             // console.log(data);
             appendVideos(data.items)
